@@ -1,0 +1,9 @@
+.App {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  // min-height: 100vh;
+  background: #0F2027; 
+  background: -webkit-linear-gradient(to left, #2C5364, #203A43, #0F2027);  
+  background: linear-gradient(to left, #2C5364, #203A43, #0F2027);
+}

@@ -1,0 +1,40 @@
+.app-routes {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.header {
+  flex-grow: 0;
+  flex-basis: auto;
+}
+
+.content {
+  overflow-y: auto;
+  display: flex;
+  flex-grow: 1;
+  flex-basis: auto;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.footer {
+  flex-grow: 0;
+  flex-basis: 100px;
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  flex-grow: 0;
+  flex-basis: auto;
+  color: #fff;  
+}
