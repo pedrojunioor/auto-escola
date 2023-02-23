@@ -1,5 +1,5 @@
 import './Alunos.scss'
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext, ReactNode} from 'react';
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import MUIDataTable from "mui-datatables";
 import { AuthContext } from '../../context/context';
@@ -27,8 +27,8 @@ export const Alunos = () => {
     const alunosT: any = []
     querySnapshot.forEach((doc) => {
       let alu = doc.data()
-      if(alu.role === 'aluno')
-      alunosT.push(alu)
+      // if (alu.role === 'aluno')
+        alunosT.push(alu)
     });
     setAlunos(alunosT)
   }
@@ -65,13 +65,13 @@ export const Alunos = () => {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <FormControlLabel
-            label={value ? "Yes" : "No"}
-            value={value ? "Yes" : "No"}
-            control={
-              <Switch color="primary" checked={value} value={value ? "Yes" : "No"} />
-            }
-            onChange={(event: any) => {
-              toggleActiveUser(tableMeta.rowData[2],'active',!value)
+              label={value ? "Yes" : "No"}
+              value={value ? "Yes" : "No"}
+              control={
+                <Switch color="primary" checked={value} value={value ? "Yes" : "No"} />
+              }
+              onChange={(event: any) => {
+                toggleActiveUser(tableMeta.rowData[2], 'active', !value)
                 updateValue(event.target.value === "Yes" ? false : true);
               }}
             />
@@ -81,6 +81,16 @@ export const Alunos = () => {
       }
     }
   ];
+
+  const options  = {
+    filterType: 'checkbox',
+    search: false,
+    viewColumns: false,
+    download: true,
+    print: false,
+    filter: false,
+    rowsPerPage:1,
+  };
 
   const getMuiTheme = () => createTheme({
     components: {
@@ -92,7 +102,7 @@ export const Alunos = () => {
       }
     }
   })
-
+ 
 
   return (
     <div className='containerAlunos'>
@@ -101,6 +111,7 @@ export const Alunos = () => {
           title={"Alunos"}
           data={alunos}
           columns={columns}
+          options={options}
         />
 
       </ThemeProvider>

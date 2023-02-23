@@ -28,10 +28,6 @@ export const AppRoutes = () => {
   const role = localStorage.getItem("role") ;
   const routesFiltered = role === 'admin' ? routes.adminRoutes : routes.alunoRoutes
 
-  useEffect(()=>{
-    console.log('ROLE',role)
-  },[role])
-
   function handleSideBar() {
     collapseSidebar()
   }
