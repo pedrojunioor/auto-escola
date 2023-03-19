@@ -1,11 +1,11 @@
-import './Questoes.scss'
+import './Questions.scss'
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../../services/firebase'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MUIDataTable from "mui-datatables";
 
-export const Questoes = () => {
+export const Questions = () => {
 
   const [questoes, setQuestoes] = useState<any>(undefined)
 

@@ -1,4 +1,4 @@
-import './Alunos.scss'
+import './Students.scss'
 import React, { useState, useEffect, useCallback, useContext, ReactNode} from 'react';
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import MUIDataTable from "mui-datatables";
@@ -8,7 +8,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
-export const Alunos = () => {
+export const Students = () => {
 
   const [alunos, setAlunos] = useState<any>(undefined)
   const { toggleActiveUser } = useContext(AuthContext)
