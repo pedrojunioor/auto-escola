@@ -1,4 +1,6 @@
 import { AES, enc } from 'crypto-js'
+import { collection, getDocs, query, where, setDoc, doc } from "firebase/firestore";
+import { db } from '../services/firebase'
 
 const cryptKey = import.meta.env.VITE_ENCRYPT;
 
@@ -26,4 +28,18 @@ export function shuffleArray(arr: any) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
+}
+
+export async function insert() {
+  const questionsRef = collection(db, "questoes");
+  for (let i = 10; i < 50; i++) {
+    await setDoc(doc(questionsRef, `${i}`), {
+      A: `A${i}`,
+      B: `B${i}`,
+      C: `C${i}`,
+      D: `D${i}`,
+      Pergunta: `Pergunta ${i}?`,
+      Resposta: `A${i}`
+    });
+  }
 }

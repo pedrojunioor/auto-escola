@@ -1,11 +1,13 @@
 import './Simulado.scss'
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where, setDoc, doc } from "firebase/firestore";
 import { db } from '../../services/firebase'
 import { shuffleArray } from '../../utils/index'
 import { encrypt, decrypt } from '../../utils/index'
 import { RadioGroup, Item, Indicator } from '@radix-ui/react-radio-group';
 import { CountdownDefault } from '../../components/CountdownDefault/CountdownDefault'
+
+import { sendTestEmail } from '../../services/ses'
 
 
 export const Simulado = () => {
@@ -15,8 +17,6 @@ export const Simulado = () => {
   const [indexCurrentQuestion, setIndexCurrentQuestion] = useState<number>(0)
   const [value, setValue] = useState('')
 
-  // localStorage.setItem("@ipm:token", encrypt(token, false));
-
   useEffect(() => {
     if (questions === undefined) {
       getQuestions()
@@ -25,6 +25,8 @@ export const Simulado = () => {
 
   async function getQuestions() {
     const querySnapshot = await getDocs(collection(db, "questoes"));
+    // const q = await query(collection(db, "questoes"), where('Pergunta', "==", "Pergunta 1?"));
+    // const querySnapshot2 = await getDocs(q);
     const questionsTemp: any = []
     querySnapshot.forEach((doc) => {
       let question = doc.data()
@@ -48,6 +50,8 @@ export const Simulado = () => {
       console.log(currentQuestion.Pergunta, '->', value)
     }
   }, [value])
+
+
 
   function handleSubmitInputValue(e) {
     e.preventDefault()
@@ -112,7 +116,6 @@ export const Simulado = () => {
 
   useEffect(() => {
     if (currentQuestion) {
-
       console.log('currentQuestion', currentQuestion)
     }
   }, [currentQuestion])
@@ -122,6 +125,9 @@ export const Simulado = () => {
     <div className='containerSimulado'>
       <div>
         <CountdownDefault />
+        <button
+          onClick={() => sendTestEmail('juniorsj33@gmail.com')}
+          type='button'>SEND MAIL</button>
       </div>
       <div>
         {currentQuestion !== undefined &&
@@ -146,12 +152,6 @@ export const Simulado = () => {
           </form>
         }
       </div>
-      {/* <h4 style={{ color: '#000000' }}> */}
-      {/* {choices.forEach((item: any) => {
-          console.log(item)
-        })
-        } */}
-      {/* </h4> */}
     </div >
   )
 }
