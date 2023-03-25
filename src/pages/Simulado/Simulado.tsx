@@ -6,9 +6,8 @@ import { shuffleArray } from '../../utils/index'
 import { encrypt, decrypt } from '../../utils/index'
 import { RadioGroup, Item, Indicator } from '@radix-ui/react-radio-group';
 import { CountdownDefault } from '../../components/CountdownDefault/CountdownDefault'
-
-import { sendTestEmail } from '../../services/ses'
-
+import { extractQuestion } from '../../data/PrimeirosSocorros'
+import { insert } from '../../utils/index'
 
 export const Simulado = () => {
 
@@ -39,10 +38,10 @@ export const Simulado = () => {
     }
   }
 
-  useEffect(() => {
-    const choicesTemp = localStorage.getItem("choices") ? decrypt(localStorage.getItem("choices"), true) : null;
-    console.log('ESCOLHAS', choicesTemp)
-  }, [indexCurrentQuestion])
+  // useEffect(() => {
+  //   const choicesTemp = localStorage.getItem("choices") ? decrypt(localStorage.getItem("choices"), true) : null;
+  //   console.log('ESCOLHAS', choicesTemp)
+  // }, [indexCurrentQuestion])
 
   useEffect(() => {
     if (currentQuestion) {
@@ -74,6 +73,7 @@ export const Simulado = () => {
   const handleBuildOptionsValues = () => {
     if (currentQuestion !== undefined) {
       let currentQuestionT = Object.assign({}, currentQuestion);
+      delete currentQuestionT['Assunto']
       delete currentQuestionT['Pergunta']
       delete currentQuestionT['Resposta']
       const values = Object.entries(currentQuestionT)
@@ -114,25 +114,35 @@ export const Simulado = () => {
   const [choices, setChoices] = useState<[]>([])
 
 
-  useEffect(() => {
-    if (currentQuestion) {
-      console.log('currentQuestion', currentQuestion)
-    }
-  }, [currentQuestion])
+  // useEffect(() => {
+  //   if (currentQuestion) {
+  //     console.log('currentQuestion', currentQuestion)
+  //   }
+  // }, [currentQuestion])
 
+  // useEffect(() => {
+  //   console.log(extractQuestion())
+  // }, [])
+
+  function inserirQuestoes() {
+    insert(extractQuestion())
+  }
 
   return (
     <div className='containerSimulado'>
       <div>
-        <CountdownDefault />
-        <button
-          onClick={() => sendTestEmail('juniorsj33@gmail.com')}
-          type='button'>SEND MAIL</button>
+        {/* <CountdownDefault /> */}
+        {/* <button
+          onClick={() => {
+            inserirQuestoes()
+          }}
+        >INSERIR</button> */}
       </div>
       <div>
         {currentQuestion !== undefined &&
           <form onSubmit={handleSubmitInputValue} >
-            <h1>{currentQuestion['Pergunta']}</h1>
+            <h3>Tema: {currentQuestion['Assunto']}</h3>
+            <h2>{currentQuestion['Pergunta']}</h2>
             <RadioGroup className="RadioGroupRoot" defaultValue="" onValueChange={setValue} aria-label="View density">
               {handleBuildOptionsValues()}
             </RadioGroup>

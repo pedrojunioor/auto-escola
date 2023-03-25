@@ -30,16 +30,12 @@ export function shuffleArray(arr: any) {
   return arr;
 }
 
-export async function insert() {
+export async function insert(questoes) {
   const questionsRef = collection(db, "questoes");
-  for (let i = 10; i < 50; i++) {
-    await setDoc(doc(questionsRef, `${i}`), {
-      A: `A${i}`,
-      B: `B${i}`,
-      C: `C${i}`,
-      D: `D${i}`,
-      Pergunta: `Pergunta ${i}?`,
-      Resposta: `A${i}`
-    });
-  }
+  questoes.forEach(async (item, i) => {
+    console.log(item)
+    await setDoc(doc(questionsRef, `${i + 1}`), item);
+  })
+
+
 }
