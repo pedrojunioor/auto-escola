@@ -7,7 +7,7 @@ import { encrypt, decrypt } from '../../utils/index'
 import { RadioGroup, Item, Indicator } from '@radix-ui/react-radio-group';
 import { CountdownDefault } from '../../components/CountdownDefault/CountdownDefault'
 import { extractQuestion } from '../../data/Extract'
-import { insert } from '../../utils/index'
+import { insert, deleteQuestions } from '../../utils/index'
 
 export const Simulado = () => {
 
@@ -24,7 +24,7 @@ export const Simulado = () => {
 
   async function getQuestions() {
     const querySnapshot = await getDocs(collection(db, "questoes"));
-    console.log('QUANTIDADE DE QUESTOES CADASTRADAS',querySnapshot.size)
+    console.log('QUANTIDADE DE QUESTOES CADASTRADAS', querySnapshot.size)
     // const q = await query(collection(db, "questoes"), where('Pergunta', "==", "Pergunta 1?"));
     // const querySnapshot2 = await getDocs(q);
     const questionsTemp: any = []
@@ -84,9 +84,9 @@ export const Simulado = () => {
             <Indicator className="RadioGroupIndicator" />
           </Item>
           <label className="Label" htmlFor="r1">
-            <h4>
+            <span>
               {`${item[0]} - ${item[1]}`}
-            </h4>
+            </span>
           </label>
         </div>
       })
@@ -128,41 +128,39 @@ export const Simulado = () => {
   function inserirQuestoes() {
     insert(extractQuestion())
   }
+  function delQuestoes() {
+    deleteQuestions([])
+  }
 
   return (
-    <div className='containerSimulado'>
-        <button
-          onClick={() => {
-            inserirQuestoes()
-          }}
-        >INSERIR</button>
-      <div>
-        {/* <CountdownDefault /> */}
-      </div>
-      {/* <div>
-        {currentQuestion !== undefined &&
-          <form onSubmit={handleSubmitInputValue} >
-            <h3>Tema: {currentQuestion['Assunto']}</h3>
-            <h2>{currentQuestion['Pergunta']}</h2>
-            <RadioGroup className="RadioGroupRoot" defaultValue="" onValueChange={setValue} aria-label="View density">
-              {handleBuildOptionsValues()}
-            </RadioGroup>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              {indexCurrentQuestion > 0 ?
-                <button onClick={() => handleCurrentQuestion('B')} style={{ backgroundColor: 'orange', padding: '8px', borderRadius: "8px", marginTop: '15px' }} type='button'>Voltar</button>
-                :
-                <button onClick={() => handleCurrentQuestion('B')} disabled style={{ backgroundColor: 'orange', padding: '8px', borderRadius: "8px", marginTop: '15px', cursor: 'not-allowed' }} type='button'>Voltar</button>
-              }
-              {indexCurrentQuestion < questions.length - 1 ?
-                <button onClick={() => handleCurrentQuestion('N')} style={{ backgroundColor: 'orange', padding: '8px', borderRadius: "8px", marginTop: '15px' }} type='button'>Avancar</button>
-                :
-                <button onClick={() => handleCurrentQuestion('N')} disabled style={{ backgroundColor: 'orange', padding: '8px', borderRadius: "8px", marginTop: '15px', cursor: 'not-allowed' }} type='button'>Avancar</button>
-              }
-              <button style={{ backgroundColor: 'blue', padding: '8px', borderRadius: "8px", marginTop: '15px', marginLeft: 'auto' }} type='submit'>Responder</button>
-            </div>
-          </form>
-        }
-      </div> */}
-    </div >
+    <>
+      <div className='containerSimulado'>
+      {/* <CountdownDefault /> */}
+        <div>
+          {currentQuestion !== undefined &&
+            <form onSubmit={handleSubmitInputValue} >
+              <h2>{currentQuestion['Pergunta']}</h2>
+              <h4>Tema: {currentQuestion['Assunto']}</h4>
+              <RadioGroup className="RadioGroupRoot" defaultValue="" onValueChange={setValue} aria-label="View density">
+                {handleBuildOptionsValues()}
+              </RadioGroup>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                {indexCurrentQuestion > 0 ?
+                  <button onClick={() => handleCurrentQuestion('B')} style={{ backgroundColor: 'orange', padding: '8px', borderRadius: "8px", marginTop: '15px' }} type='button'>Voltar</button>
+                  :
+                  <button onClick={() => handleCurrentQuestion('B')} disabled style={{ backgroundColor: 'orange', padding: '8px', borderRadius: "8px", marginTop: '15px', cursor: 'not-allowed' }} type='button'>Voltar</button>
+                }
+                {indexCurrentQuestion < questions.length - 1 ?
+                  <button onClick={() => handleCurrentQuestion('N')} style={{ backgroundColor: 'orange', padding: '8px', borderRadius: "8px", marginTop: '15px' }} type='button'>Avancar</button>
+                  :
+                  <button onClick={() => handleCurrentQuestion('N')} disabled style={{ backgroundColor: 'orange', padding: '8px', borderRadius: "8px", marginTop: '15px', cursor: 'not-allowed' }} type='button'>Avancar</button>
+                }
+                <button style={{ backgroundColor: 'blue', padding: '8px', borderRadius: "8px", marginTop: '15px', marginLeft: 'auto' }} type='submit'>Responder</button>
+              </div>
+            </form>
+          }
+        </div>
+      </div >
+    </>
   )
 }

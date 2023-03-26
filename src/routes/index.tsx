@@ -85,22 +85,7 @@ export const AppRoutes = () => {
                         }
                       />
                     })}
-                    {/* <Route
-                      path="/home"
-                      element={
-                        <PrivateRoute redirectTo="/">
-                          <Home />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="/alunos"
-                      element={
-                        <PrivateRoute redirectTo="/">
-                          <Alunos />
-                        </PrivateRoute>
-                      }
-                    /> */}
+                  
                     <Route path="/" element={<Login />} />
                     <Route path="/cadastro" element={<Cadastro />} />
                     <Route path="*" element={<PageNotFound />} />

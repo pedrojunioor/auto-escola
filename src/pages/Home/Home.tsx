@@ -1,15 +1,16 @@
 import './Home.scss'
-import * as AspectRatio from '@radix-ui/react-aspect-ratio';
+import image from '../../assets/welcome.jpg'
+
 export const Home = () => {
   return (
     <div className='home-container'>
-      <AspectRatio.Root ratio={6 / 3}>
-        <img
-          className="Image"
-          src="https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=300&dpr=2&q=80"
-          alt="Landscape photograph by Tobias Tullius"
-        />
-      </AspectRatio.Root>
+      <div className='welcome-text '>
+        <h2 >Bem-vindo à nossa aplicação web de simulado para exames teóricos do Detran!</h2>
+        <p >Com nosso sistema, você pode praticar para seu exame de habilitação em qualquer lugar, a qualquer momento. Oferecemos uma variedade de questões personalizadas para que você possa se preparar de forma eficiente. Nossa equipe está sempre melhorando o conteúdo e a usabilidade do sistema. Comece a praticar agora e boa sorte no seu exame!</p>
+      </div>
+      <div className='welcome-figure'>
+        <img src={image} alt="Banner de boas-vindas" />
+      </div>
     </div>
   )
 }

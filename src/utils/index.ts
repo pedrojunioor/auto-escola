@@ -1,5 +1,5 @@
 import { AES, enc } from 'crypto-js'
-import { collection, getDocs, query, where, setDoc, doc } from "firebase/firestore";
+import { collection, getDocs, query, where, setDoc, doc, deleteDoc } from "firebase/firestore";
 import { db } from '../services/firebase'
 
 const cryptKey = import.meta.env.VITE_ENCRYPT;
@@ -28,6 +28,13 @@ export function shuffleArray(arr: any) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
+}
+
+export async function deleteQuestions (questoes){
+  await deleteDoc(doc(db, "questoes", "188"));
+  // questoes.forEach(async item => {
+  //   await deleteDoc(doc(db, "cities", item));
+  // })
 }
 
 export async function insert(questoes) {

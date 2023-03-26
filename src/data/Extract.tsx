@@ -3,7 +3,8 @@ const pdf = new String('')
 // import { text, respostas } from './medicinadotrafego'
 // import { text, respostas } from './legislacaodetransitogeral'
 // import { text, respostas } from './legislacaodetransitoconceitos'
-import { text, respostas } from './legislacaodetransitosemaforica'
+// import { text, respostas } from './legislacaodetransitosemaforica'
+import { text, respostas } from './mecanicabasica'
 
 export function extractQuestion() {
 
@@ -16,7 +17,7 @@ export function extractQuestion() {
     const items = question.split(/\s*[A-E]\.\s+/).filter(Boolean)
     console.log(i,items)
     let temp = {
-      Assunto: 'LEGISLAÇÃO DE TRÂNSITO - SINALIZAÇÃO - CONCEITOS',
+      Assunto: 'MECÂNICA BÁSICA',
       Pergunta: items[0],
       Resposta: '',
       A: items[1].replace(/(\r\n|\n|\r)/gm, ""),
