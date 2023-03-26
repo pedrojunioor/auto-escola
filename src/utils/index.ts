@@ -31,11 +31,13 @@ export function shuffleArray(arr: any) {
 }
 
 export async function insert(questoes) {
+  const querySnapshot = await getDocs(collection(db, "questoes"));
+  let init = querySnapshot.size
   const questionsRef = collection(db, "questoes");
-  questoes.forEach(async (item, i) => {
-    console.log(item)
-    await setDoc(doc(questionsRef, `${i + 1}`), item);
-  })
 
+  // questoes.forEach(async (item, i) => {
+  //   console.log(item)
+  //   await setDoc(doc(questionsRef, `${init + i}`), item);
+  // })
 
 }

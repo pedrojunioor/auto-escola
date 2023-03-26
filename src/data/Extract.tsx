@@ -1,16 +1,22 @@
 
 const pdf = new String('')
-import { text, respostas } from './medicinadotrafego'
+// import { text, respostas } from './medicinadotrafego'
+// import { text, respostas } from './legislacaodetransitogeral'
+// import { text, respostas } from './legislacaodetransitoconceitos'
+import { text, respostas } from './legislacaodetransitosemaforica'
 
 export function extractQuestion() {
 
   // Separa as questões
   const questions = text.split(/\d+\.\s+/).filter(Boolean)
   const res = respostas.split('.').filter(Boolean)
+  console.log('questions',questions)
+  console.log('questions',respostas)
   const questionObjects = questions.map((question, i) => {
     const items = question.split(/\s*[A-E]\.\s+/).filter(Boolean)
+    console.log(i,items)
     let temp = {
-      Assunto: 'MEDICINA DE TRÁFEGO',
+      Assunto: 'LEGISLAÇÃO DE TRÂNSITO - SINALIZAÇÃO - CONCEITOS',
       Pergunta: items[0],
       Resposta: '',
       A: items[1].replace(/(\r\n|\n|\r)/gm, ""),
@@ -23,6 +29,7 @@ export function extractQuestion() {
     return temp
   })
   const json = JSON.stringify(questionObjects)
+  console.log('->',questionObjects)
   return questionObjects
 
 }

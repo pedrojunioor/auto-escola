@@ -6,7 +6,7 @@ import { shuffleArray } from '../../utils/index'
 import { encrypt, decrypt } from '../../utils/index'
 import { RadioGroup, Item, Indicator } from '@radix-ui/react-radio-group';
 import { CountdownDefault } from '../../components/CountdownDefault/CountdownDefault'
-import { extractQuestion } from '../../data/PrimeirosSocorros'
+import { extractQuestion } from '../../data/Extract'
 import { insert } from '../../utils/index'
 
 export const Simulado = () => {
@@ -24,6 +24,7 @@ export const Simulado = () => {
 
   async function getQuestions() {
     const querySnapshot = await getDocs(collection(db, "questoes"));
+    console.log('QUANTIDADE DE QUESTOES CADASTRADAS',querySnapshot.size)
     // const q = await query(collection(db, "questoes"), where('Pergunta', "==", "Pergunta 1?"));
     // const querySnapshot2 = await getDocs(q);
     const questionsTemp: any = []
@@ -130,15 +131,15 @@ export const Simulado = () => {
 
   return (
     <div className='containerSimulado'>
-      <div>
-        {/* <CountdownDefault /> */}
-        {/* <button
+        <button
           onClick={() => {
             inserirQuestoes()
           }}
-        >INSERIR</button> */}
-      </div>
+        >INSERIR</button>
       <div>
+        {/* <CountdownDefault /> */}
+      </div>
+      {/* <div>
         {currentQuestion !== undefined &&
           <form onSubmit={handleSubmitInputValue} >
             <h3>Tema: {currentQuestion['Assunto']}</h3>
@@ -161,7 +162,7 @@ export const Simulado = () => {
             </div>
           </form>
         }
-      </div>
+      </div> */}
     </div >
   )
 }
